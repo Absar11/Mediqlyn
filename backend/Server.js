@@ -6,6 +6,7 @@ import connectCloudinary from "./config/cloudnary.js";
 import adminRouter from "./routes/adminRoute.js";
 import doctorRouter from "./routes/doctorRoute.js";
 import userRouter from "./routes/userRoute.js";
+// const cors = require("cors");
 
 //  app config
 const app = express();
@@ -20,7 +21,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "token"], // ✅ Add "token"
   })
 );
 
