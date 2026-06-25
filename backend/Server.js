@@ -18,10 +18,15 @@ connectCloudinary();
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: [
+      "https://mediqlyn-eqmz.vercel.app",
+      "https://mediqlyn.vercel.app",
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "token"], // ✅ Add "token"
+    allowedHeaders: ["Content-Type", "Authorization", "token"],
   })
 );
 
