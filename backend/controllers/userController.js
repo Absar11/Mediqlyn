@@ -195,7 +195,15 @@ const razorpayinstance = new razorpay({
 const paymentprocess = async (req, res) => {
   try {
     const { appointmentId } = req.body;
+
+    console.log("Appointment ID:", appointmentId);
+
     const appointmentData = await appointmentModel.findById(appointmentId);
+
+    console.log("Appointment Data:", appointmentData);
+    console.log("Amount:", appointmentData?.amount);
+    console.log("Currency:", process.env.CURRENCY);
+    console.log("Razorpay Key:", process.env.RAZORPAY_KEY_ID);
 
     if (!appointmentData || appointmentData.cancel) {
       return res.json({
@@ -210,10 +218,21 @@ const paymentprocess = async (req, res) => {
       receipt: appointmentId,
     };
 
+    console.log("Order Options:", option);
+
     const order = await razorpayinstance.orders.create(option);
-    res.json({ success: true, order });
+
+    res.json({
+      success: true,
+      order,
+    });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    console.error("Payment Error:", error);
+
+    res.json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 
